@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>北欧航班方案对比：SFO ⇄ OSL</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#111827;--muted:#64748b;--line:#e2e8f0;--accent:#2563eb;--good:#047857;--warn:#b45309;--bad:#b91c1c}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC","PingFang SC",Arial,sans-serif;line-height:1.5}
+.container{max-width:1180px;margin:0 auto;padding:28px 18px 60px}.hero{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:white;border-radius:18px;padding:28px;box-shadow:0 12px 30px rgba(15,23,42,.18)}
+h1{margin:0 0 8px;font-size:30px}.subtitle{opacity:.86;margin:0}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.pill{border-radius:999px;padding:5px 11px;background:rgba(255,255,255,.13);font-size:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:18px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+h2{font-size:20px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.rec{border-left:5px solid var(--accent)}.rec h3{margin:0 0 8px;font-size:16px}.price{font-size:28px;font-weight:750}.small{font-size:13px;color:var(--muted)}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}input,select{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:white;font-size:14px}input{min-width:260px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:980px;background:white}th,td{border-bottom:1px solid var(--line);padding:11px 10px;text-align:left;vertical-align:top;font-size:14px}th{position:sticky;top:0;background:#f1f5f9;z-index:1;font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:#475569}tr:hover td{background:#f8fafc}.tag{display:inline-block;border-radius:999px;background:#eef2ff;color:#3730a3;padding:2px 8px;font-size:12px;margin:2px 4px 2px 0}.tag.green{background:#ecfdf5;color:#065f46}.tag.orange{background:#fff7ed;color:#9a3412}.tag.red{background:#fef2f2;color:#991b1b}.note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px;margin-top:12px;color:#78350f}.footer{margin-top:20px;color:var(--muted);font-size:13px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.hero{padding:22px}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <h1>北欧航班方案对比：SFO ⇄ OSL</h1>
+    <p class="subtitle">目标：9/25 下午从旧金山出发，10/5 尽量早上/中午前后回到美西。价格来自 Google Flights 同一查询口径，供 review 和微调。</p>
+    <div class="meta">
+      <span class="pill">出发：SFO → OSL</span><span class="pill">去程：Fri Sep 25, 2026</span><span class="pill">回程：Mon Oct 5, 2026</span><span class="pill">舱位：Economy / 1 adult</span><span class="pill">查询时间：2026-06-05 UTC</span>
+    </div>
+  </section>
+
+  <section class="card rec">
+    <h2>结论先看</h2>
+    <div class="grid">
+      <div>
+        <h3>最推荐：KLM / AMS</h3>
+        <div class="price">约 $1,099</div>
+        <div class="small">SFO 13:45 → OSL 12:30+1；OSL 06:30 → SFO 11:45</div>
+        <p><span class="tag green">时间最好</span><span class="tag green">回程最贴近“早上到美国”</span><span class="tag green">AMS 转机顺</span></p>
+      </div>
+      <div>
+        <h3>省钱可选：Air France / CDG</h3>
+        <div class="price">约 $923</div>
+        <div class="small">SFO 15:05 → OSL 16:40+1；OSL 06:30 → SFO 12:50</div>
+        <p><span class="tag orange">便宜约 $176</span><span class="tag orange">但去程晚到</span><span class="tag orange">CDG 风险略高</span></p>
+      </div>
+      <div>
+        <h3>不建议：最低价/分开出票</h3>
+        <div class="price">约 $825</div>
+        <div class="small">回程 2 stops / separate tickets / 22:19 到 SFO</div>
+        <p><span class="tag red">不符合早到</span><span class="tag red">误机/行李风险高</span></p>
+      </div>
+    </div>
+    <div class="note">说明：Google Flights 的列表价显示为“round trip”，但具体回程选哪一趟会影响最终价格。下面分成「完整组合」和「去程候选」两个表；如果你截图里有中文 OTA 的价格，我留了“截图/外部参考价”列，后续可以直接补进去。</div>
+  </section>
+
+  <section class="card">
+    <h2>完整组合对比（优先 review 这个表）</h2>
+    <div class="table-wrap"><table id="comboTable"><thead><tr><th>方案</th><th>出发点/结束点</th><th>去程时间</th><th>回程时间</th><th>成本</th><th>好处</th><th>坏处/风险</th><th>建议</th></tr></thead><tbody>
+      <tr><td><b>KLM / AMS 标准推荐</b></td><td>SFO ⇄ OSL，经 AMS</td><td>9/25 13:45 SFO → 9/26 12:30 OSL<br><span class="small">13h45，AMS 1h40</span></td><td>10/5 06:30 OSL → 10/5 11:45 SFO<br><span class="small">14h15，AMS 1h35</span></td><td><b>$1,099</b><br><span class="small">Google Flights observed</span></td><td>总时长短；回程 11:45 到 SFO 最贴近“早上到美西”；AMS 转机体验通常比 CDG 稳；碳排低</td><td>比最便宜方案贵约 $176–274；去程 13:45 算下午偏早</td><td><span class="tag green">首选</span></td></tr>
+      <tr><td><b>KLM 去程 + AF 回程</b></td><td>SFO ⇄ OSL，经 AMS/CDG</td><td>9/25 13:45 SFO → 9/26 12:30 OSL<br><span class="small">AMS 1h40</span></td><td>10/5 06:30 OSL → 10/5 12:50 SFO<br><span class="small">CDG 1h10</span></td><td><b>$1,051</b><br><span class="small">选择 KLM 去程后显示</span></td><td>去程很好；比全 KLM 便宜约 $48；仍是当天中午到 SFO</td><td>CDG 1h10 偏紧；回程比 KLM 晚 1h05</td><td><span class="tag green">可选</span></td></tr>
+      <tr><td><b>Air France / CDG 省钱组合</b></td><td>SFO ⇄ OSL，经 CDG</td><td>9/25 15:05 SFO → 9/26 16:40 OSL<br><span class="small">16h35，CDG 3h20</span></td><td>10/5 06:30 OSL → 10/5 12:50 SFO<br><span class="small">15h20，CDG 1h10</span></td><td><b>$923</b><br><span class="small">选择 AF 去程后显示</span></td><td>价格明显低；9/25 下午出发更符合“下午”；去程转机时间充足</td><td>到 Oslo 晚 4h10；回程 CDG 1h10 偏紧；SFO 到达接近下午</td><td><span class="tag orange">预算优先可选</span></td></tr>
+      <tr><td><b>最低价 Separate Tickets</b></td><td>SFO ⇄ OSL，去程 CDG；回程 LHR+LAX</td><td>9/25 15:05 SFO → 9/26 16:40 OSL</td><td>10/5 11:35 OSL → 10/5 22:19 SFO<br><span class="small">2 stops，LHR + LAX，separate tickets</span></td><td><b>$825</b></td><td>表面价格最低</td><td>分开出票；两次转机；晚上才到 SFO；行李/延误风险最高；不符合目标</td><td><span class="tag red">不建议</span></td></tr>
+      <tr><td><b>SAS / CPH 快速去程</b></td><td>SFO ⇄ OSL，经 CPH</td><td>9/25 16:45 SFO → 9/26 15:05 OSL<br><span class="small">13h20，CPH 1h55</span></td><td>回程需再确认具体配对</td><td><b>from $976</b></td><td>去程出发时间舒服；总时长短；CPH 转机通常顺</td><td>价格接近 KLM；回程早到方案需点进去确认</td><td><span class="tag green">值得备选</span></td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Google Flights 去程候选列表（同一平台同一查询）</h2>
+    <div class="controls"><input id="search" placeholder="搜索航司/机场/优缺点…"><select id="sort"><option value="price">按价格</option><option value="duration">按飞行时长</option><option value="depart">按出发时间</option></select></div>
+    <div class="table-wrap"><table id="optionTable"><thead><tr><th>#</th><th>出发点/结束点</th><th>时间</th><th>成本</th><th>好处</th><th>坏处</th><th>截图/外部参考价</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>我的判断规则</h2>
+    <ol>
+      <li><b>优先满足时间目标：</b>10/5 到 SFO 越早越好，所以 11:45 到的 KLM 回程优先级最高。</li>
+      <li><b>避免 separate tickets：</b>国际长途 + 多段分开出票，便宜但不值得承担误机和行李风险。</li>
+      <li><b>转机机场偏好：</b>AMS / CPH 通常优于 CDG；CDG 如果只有 1h10 我会当作风险项。</li>
+      <li><b>价格阈值：</b>KLM 全程如果中文平台能做到约 ¥6500–7500，可以买；超过 ¥8000 再考虑等或切 AF/SAS。</li>
+    </ol>
+    <p class="footer">Source: Google Flights snapshots extracted during review. Prices are volatile and may change by device/session/currency; booking前建议再用 Google Flights + 中文平台各核一次。</p>
+  </section>
+</div>
+<script>
+const rows = [
+ {n:1, route:'SFO → OSL，经 CDG', airline:'Air France / Delta', depart:'9/25 15:05', arrive:'9/26 16:40', duration:995, price:825, transfer:'CDG 3h20', pros:'价格最低档；出发时间符合下午；去程转机时间充足', cons:'到 Oslo 较晚；完整组合需避开 separate tickets；回程若走 CDG 1h10 偏紧', ref:'待补截图价'},
+ {n:2, route:'SFO → OSL，经 CPH', airline:'Scandinavian Airlines', depart:'9/25 16:45', arrive:'9/26 15:05', duration:800, price:976, transfer:'CPH 1h55', pros:'总时长短；出发时间舒服；CPH 转机顺', cons:'价格不算最低；需点进确认回程组合', ref:'待补截图价'},
+ {n:3, route:'SFO → OSL，经 LHR', airline:'British Airways / AA / Iberia', depart:'9/25 16:35', arrive:'9/26 16:20', duration:885, price:997, transfer:'LHR 2h10', pros:'时间中规中矩；LHR 连接时间可接受', cons:'价格接近 KLM 但体验/回程不占优；LHR 机场体验一般', ref:'待补截图价'},
+ {n:4, route:'SFO → OSL，经 AMS', airline:'KLM + SAS Connect', depart:'9/25 13:45', arrive:'9/26 12:30', duration:825, price:1051, transfer:'AMS 1h40', pros:'到 Oslo 最早；AMS 转机；低排放；最接近推荐组合', cons:'价格高一些；13:45 是下午偏早', ref:'待补截图价'},
+ {n:5, route:'SFO → OSL，经 CDG', airline:'Air France / Delta', depart:'9/25 20:10', arrive:'9/26 23:20', duration:1090, price:825, transfer:'CDG 5h10', pros:'晚出发，白天可多留在 Bay Area；价格低', cons:'23:20 才到 Oslo，落地太晚；总时长长', ref:'待补截图价'},
+ {n:6, route:'SFO → OSL，经 MUC', airline:'Lufthansa / United', depart:'9/25 21:05', arrive:'9/26 22:05', duration:960, price:891, transfer:'MUC 2h40', pros:'价格低；晚出发；MUC 转机时间舒服', cons:'到 Oslo 很晚；排放高；不适合落地后安排', ref:'待补截图价'},
+ {n:7, route:'SFO → OSL，经 FRA', airline:'Lufthansa / United', depart:'9/25 14:40', arrive:'9/26 15:55', duration:975, price:930, transfer:'FRA 3h25', pros:'价格适中；下午出发；转机时间充足', cons:'总时长偏长；FRA 体验一般', ref:'待补截图价'},
+ {n:8, route:'SFO → OSL，经 AMS', airline:'KLM / Delta', depart:'9/25 13:45', arrive:'9/26 16:20', duration:1055, price:984, transfer:'AMS 5h30', pros:'AMS 转机；低排放；比推荐 KLM 便宜', cons:'同样 13:45 出发但晚到 Oslo；5h30 layover 偏长', ref:'待补截图价'},
+ {n:9, route:'SFO → OSL，经 CPH', airline:'Scandinavian Airlines / SAS Link', depart:'9/25 16:45', arrive:'9/26 14:05', duration:740, price:1066, transfer:'CPH 0h55', pros:'飞行总时长最短；出发时间好；到达早', cons:'CPH 55分钟转机偏紧；价格高', ref:'待补截图价'},
+ {n:10, route:'SFO → OSL，经 FRA', airline:'United / Lufthansa', depart:'9/25 19:25', arrive:'9/26 18:35', duration:850, price:1154, transfer:'FRA 1h15', pros:'晚出发且总时长短', cons:'贵；FRA 1h15 偏紧；到达偏晚', ref:'待补截图价'},
+ {n:11, route:'SFO → OSL，经 JFK', airline:'Delta / SAS / Air France', depart:'9/25 07:00', arrive:'9/26 06:45', duration:885, price:1325, transfer:'JFK 1h33', pros:'最早到 Oslo', cons:'不是下午出发；最贵；不符合原始偏好', ref:'待补截图价'}
+];
+function fmtDur(m){return Math.floor(m/60)+'h '+(m%60?m%60+'m':'')}
+function render(){const q=document.getElementById('search').value.toLowerCase(); const sort=document.getElementById('sort').value; let data=[...rows].filter(r=>JSON.stringify(r).toLowerCase().includes(q)); data.sort((a,b)=>sort==='price'?a.price-b.price:sort==='duration'?a.duration-b.duration:a.depart.localeCompare(b.depart)); document.querySelector('#optionTable tbody').innerHTML=data.map(r=>`<tr><td>${r.n}</td><td><b>${r.route}</b><br><span class="small">${r.airline}</span><br><span class="tag">${r.transfer}</span></td><td>${r.depart} SFO → ${r.arrive} OSL<br><span class="small">${fmtDur(r.duration)}</span></td><td><b>$${r.price.toLocaleString()}</b><br><span class="small">Google Flights round-trip displayed</span></td><td>${r.pros}</td><td>${r.cons}</td><td>${r.ref}</td></tr>`).join('')}
+document.getElementById('search').addEventListener('input',render);document.getElementById('sort').addEventListener('change',render);render();
+</script>
+</body></html>

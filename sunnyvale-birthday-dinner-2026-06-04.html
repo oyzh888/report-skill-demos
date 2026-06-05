@@ -1,0 +1,302 @@
+<!doctype html>
+<!--
+report-skill: 0.3.1
+template: compare-grid
+generated_at: 2026-06-04T03:55:03Z
+generator: report-skill/bin/report new
+git_sha: cf37cfb
+-->
+<!--
+  template: compare-grid
+  schema_version: 1
+  when_to_use: side-by-side comparison of N model outputs (image/video/text)
+  data_schema:
+    title: string
+    tldr: string (markdown allowed)
+    columns: [{name: string, description?: string}]
+    rows: [{
+      id: string,
+      prompt?: string,
+      items: [{kind: "image"|"video"|"text"|"html", value: string, caption?: string}],
+      notes?: string
+    }]
+    metadata?: object  // shown in the "details" footer
+  example_input: examples/compare-grid-llm-eval.html
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunnyvale Birthday Dinner Shortlist</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-feature-settings: "ss01","cv11"; }
+  .layer-1 { background: linear-gradient(180deg,#fafafa,#f4f4f5); }
+  .cell-img img, .cell-video video { max-height: 280px; width: 100%; object-fit: contain; background:#0a0a0a; border-radius: 6px; }
+  .cell-text { white-space: pre-wrap; font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: 12.5px; line-height: 1.45; }
+  details > summary { cursor: pointer; user-select: none; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 9999px; }
+</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
+
+<!-- ======= DATA: an LLM (or a human) replaces this block ======= -->
+<script id="data" type="application/json">
+{
+  "title": "Weitou + Steve Birthday Dinner · South Bay shortlist",
+  "tldr": "这版按你的反馈重排：先看每家采集到/可用的图片数量，再标出小红书/中文社区信号，最后给默认 Top 1 / Top 2 和明确选择理由。默认推荐：Top 1 = Meyhouse Sunnyvale；Top 2 = Valley Goat。如果人数更大、需要包间稳妥保底，Dishdash 是运营型备选。",
+  "columns": [
+    {
+      "name": "采集图 / 链接"
+    },
+    {
+      "name": "小红书 / 中文社区信号"
+    },
+    {
+      "name": "为什么适合 Weitou + Steve 生日"
+    },
+    {
+      "name": "默认决策"
+    }
+  ],
+  "rows": [
+    {
+      "id": "Top 1 · Meyhouse Sunnyvale",
+      "prompt": "土耳其/地中海 · Downtown Sunnyvale · 生日感/氛围感最强",
+      "items": [
+        {
+          "kind": "image",
+          "value": "https://static.wixstatic.com/media/2bc0f4_c990a96c77d64e729369c91b01ba0fc9~mv2.jpeg/v1/fit/w_900,h_675,q_90/2bc0f4_c990a96c77d64e729369c91b01ba0fc9~mv2.jpeg",
+          "caption": "已采集/可用图片：约 6 张（官网 private events / venue / food / social preview）。预订：https://www.meyhouserestaurant.com/reservations-1"
+        },
+        {
+          "kind": "html",
+          "value": "<b>小红书链接：</b>未稳定抓到可直接打开的 XHS 单帖链接。<br><b>中文社区/华人信号：</b>搜索结果里有南湾聚餐/生日推荐语境；Meyhouse 被反复描述为精致、适合庆祝。<br><b>补充可查：</b>Instagram / Google Photos / Yelp 图更完整。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>为什么适合：</b><br>• 生日主角是 Weitou + Steve，两个人一起庆祝，需要比普通聚餐更有“仪式感”。<br>• 官网明确支持 10–100 人 private parties，可做 3/4/5-course set menu。<br>• Downtown Sunnyvale 位置方便，氛围比火锅/普通中餐更适合拍照、敬酒、切蛋糕。<br>• 菜系对华人朋友相对友好：烤肉、mezze、海鲜/小菜分享度高。"
+        },
+        {
+          "kind": "html",
+          "value": "<span style='font-size:22px'>🏆 默认 Top 1</span><br><b>我会默认先订 Meyhouse。</b><br><br><b>适用条件：</b>8–20 人；想要体面、好看、生日感强。<br><b>风险：</b>周五晚可能需要确认 minimum / set menu / 是否能带蛋糕。"
+        }
+      ],
+      "notes": "结论：如果不想纠结，先打 Meyhouse。它最符合“共同生日 + 朋友局 + 需要一点仪式感”。"
+    },
+    {
+      "id": "Top 2 · Valley Goat",
+      "prompt": "现代美式/全球风味 · Treehouse Hotel · 新潮热闹",
+      "items": [
+        {
+          "kind": "image",
+          "value": "https://cdn.prod.website-files.com/6799674546712950cab502f8/67b7a8c300437ab432e1a403_events_open_graph.jpg",
+          "caption": "已采集/可用图片：约 8 张（官网 / Treehouse gallery / SFGATE / PartySlate / events page）。Private events: https://www.valleygoatsv.com/private-events"
+        },
+        {
+          "kind": "html",
+          "value": "<b>小红书链接：</b>未稳定抓到单帖链接。<br><b>中文社区信号：</b>搜索结果里出现“湾区新晋网红餐厅 / 节日庆祝 / 约会聚餐”语境；Dealmoon 等中文站也有提及。<br><b>英文证据：</b>SFGATE / PartySlate 都提到 private dining room 和生日/celebration 场景。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>为什么适合：</b><br>• 更“新”和有话题感，适合 Steve 这类朋友局，不像传统包间餐厅。<br>• Private dining room 描述明确：dried florals canopy、plush leather seating，最多约 18 seated / 24 reception。<br>• James Beard chef 背书，菜单更有记忆点，适合双生日做一点特别体验。<br>• 如果宾客偏年轻/创业/科技圈，氛围更匹配。"
+        },
+        {
+          "kind": "html",
+          "value": "<span style='font-size:22px'>🥈 默认 Top 2</span><br><b>如果 Meyhouse 订不到，选 Valley Goat。</b><br><br><b>适用条件：</b>10–18 人；想新潮、好拍、特别一点。<br><b>风险：</b>可能偏吵/新店体验波动；要确认桌型和 private room availability。"
+        }
+      ],
+      "notes": "结论：更酷、更适合朋友局；但组织确定性略低于 Meyhouse。"
+    },
+    {
+      "id": "Ops fallback · Dishdash Sunnyvale",
+      "prompt": "中东菜 · Downtown Sunnyvale · 包间/多人最稳",
+      "items": [
+        {
+          "kind": "image",
+          "value": "https://images.getbento.com/accounts/b38e939634ac84ffbf60ac89fa6b7dcf/media/images/6161logo_new.png",
+          "caption": "已采集/可用图片：约 4 张（官网 private room / logo / menu / venue pages；视觉资料少于 Top 2）。Private room: https://www.dishdash.com/private-events-venue/sunnyvale-private-room/"
+        },
+        {
+          "kind": "html",
+          "value": "<b>小红书链接：</b>未稳定抓到单帖链接。<br><b>中文/本地信号：</b>Dishdash 是 Sunnyvale 老牌中东菜，中文搜索和本地推荐里经常作为安全牌出现。<br><b>官方证据：</b>private room、family-style / buffet、adjacent bar 都写得很清楚。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>为什么适合：</b><br>• 如果人数变多，或者需要明确 private room，这是最稳的组织方案。<br>• 菜比较 shareable，点菜/分餐/照顾素食都容易。<br>• Downtown Sunnyvale 位置也方便，和 Meyhouse 很近。<br><br><b>为什么不是默认 Top 1：</b>视觉和生日仪式感不如 Meyhouse / Valley Goat。"
+        },
+        {
+          "kind": "html",
+          "value": "<span style='font-size:22px'>✅ 保底选项</span><br><b>适合 12–25 人、想省心。</b><br><br>如果 Steve 现在最关心“别出错、能坐下、服务稳定”，Dishdash 可以直接升到 Top 2。"
+        }
+      ],
+      "notes": "结论：不是最有生日感，但最稳。适合人数不确定时保底。"
+    },
+    {
+      "id": "Chinese taste · Ginger Cafe",
+      "prompt": "中餐 + 东南亚风味 · 华人口味安全牌",
+      "items": [
+        {
+          "kind": "image",
+          "value": "https://gingercafe.net/wp-content/uploads/2016/11/lobster.jpg",
+          "caption": "已采集/可用图片：约 5 张（官网菜图/龙虾/菜单）。官网：https://gingercafe.net/"
+        },
+        {
+          "kind": "html",
+          "value": "<b>小红书链接：</b>未稳定抓到单帖链接。<br><b>中文社区信号：</b>南湾聚餐/中餐推荐里会出现 Ginger Cafe / Fashion Wok / Seapot 这类安全牌。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>为什么适合：</b><br>• 如果 Weitou + Steve 的宾客更偏华人口味，中餐大菜更保险。<br>• 龙虾、鱼、脆皮鸡等更像传统生日宴。<br><br><b>为什么不默认：</b>空间/氛围不一定够“生日局”，更像日常聚餐升级。"
+        },
+        {
+          "kind": "html",
+          "value": "🥢 <b>口味安全备选</b><br>适合大家明确想吃中餐时。否则排在 Top 1/2 后面。"
+        }
+      ],
+      "notes": "结论：口味稳，但不是最有仪式感。"
+    },
+    {
+      "id": "Casual loud · Seapot Sunnyvale",
+      "prompt": "自助火锅 + 烤肉 · 热闹但嘈杂",
+      "items": [
+        {
+          "kind": "html",
+          "value": "<div style='height:180px;border-radius:10px;background:linear-gradient(135deg,#fecaca,#f97316);display:flex;align-items:center;justify-content:center;font-size:44px'>🍲🥩</div>",
+          "caption": "已采集/可用图片：约 3 张（搜索/平台图，未放外链图以避免不稳定）。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>小红书链接：</b>未稳定抓到单帖链接，但火锅/烤肉在 XHS/华人社区天然容易有图。<br><b>本地信号：</b>适合年轻人随意热闹聚餐。"
+        },
+        {
+          "kind": "html",
+          "value": "<b>为什么适合：</b><br>• 人数不确定、大家想轻松聊天时很好用。<br>• 不用精细点菜，不容易踩雷。<br><br><b>为什么不默认：</b>太吵、排队/服务不可控、生日仪式感弱。"
+        },
+        {
+          "kind": "html",
+          "value": "🍲 <b>只做 casual fallback</b><br>如果目标是“热闹吃饱”，可以；如果是双生日庆祝，不优先。"
+        }
+      ],
+      "notes": "结论：好玩但不够生日。"
+    }
+  ],
+  "metadata": {
+    "updated_at": "2026-06-04T07:18:00Z",
+    "birthday_people": [
+      "Weitou",
+      "Steve"
+    ],
+    "default_recommendation": "Top 1 Meyhouse; Top 2 Valley Goat; Dishdash as operational fallback",
+    "image_collection_note": "图片数量是本轮可公开抓取/可用链接的估算，不等同于餐厅所有图片总量。",
+    "xiaohongshu_note": "本轮没有拿到稳定可直接打开的 XHS 单帖 URL；网页中明确标注为未稳定抓到，避免假链接。",
+    "sources": [
+      "Meyhouse official private events / reservations pages",
+      "Dishdash official private room / private events pages",
+      "Valley Goat official private events page, Treehouse Hotel gallery, SFGATE, PartySlate",
+      "Chinese-community search signals: Dealmoon / general Sunnyvale group-dinner search results"
+    ]
+  }
+}
+</script>
+
+<div x-data="reportApp()" x-init="init()" class="max-w-7xl mx-auto p-6">
+
+  <!-- HERO (leadership layer) -->
+  <header class="mb-8">
+    <div class="text-xs uppercase tracking-wider text-zinc-500 mb-1">compare-grid · report-skill</div>
+    <h1 class="text-3xl font-semibold tracking-tight" x-text="data.title"></h1>
+    <p class="mt-3 text-zinc-700 max-w-3xl leading-relaxed" x-text="data.tldr"></p>
+    <div class="mt-4 flex items-center gap-2 text-xs">
+      <span class="badge bg-zinc-200 text-zinc-700" x-text="data.rows.length + ' cases'"></span>
+      <span class="badge bg-zinc-200 text-zinc-700" x-text="data.columns.length + ' models'"></span>
+      <span class="badge bg-emerald-100 text-emerald-800" x-show="data.metadata?.git_sha"
+            x-text="'sha: ' + (data.metadata?.git_sha||'').slice(0,7)"></span>
+    </div>
+  </header>
+
+  <!-- TOOLBAR (teammate layer) -->
+  <div class="mb-4 flex flex-wrap gap-3 items-center text-sm">
+    <input type="text" placeholder="filter by id, prompt, notes…"
+           x-model="filter"
+           class="border border-zinc-300 bg-white rounded-md px-3 py-1.5 w-72">
+    <label class="flex items-center gap-2"><input type="checkbox" x-model="onlyDiffs"> only show diffs</label>
+    <span class="ml-auto text-zinc-500" x-text="visibleRows().length + ' / ' + data.rows.length + ' visible'"></span>
+  </div>
+
+  <!-- GRID -->
+  <div class="overflow-x-auto rounded-lg border border-zinc-200 bg-white shadow-sm">
+    <table class="min-w-full">
+      <thead class="bg-zinc-100">
+        <tr>
+          <th class="text-left px-3 py-2 text-xs font-semibold text-zinc-600 w-32">case</th>
+          <template x-for="col in data.columns" :key="col.name">
+            <th class="text-left px-3 py-2 text-xs font-semibold text-zinc-600">
+              <div x-text="col.name"></div>
+              <div class="font-normal text-zinc-500" x-text="col.description||''"></div>
+            </th>
+          </template>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in visibleRows()" :key="row.id">
+          <tr class="border-t border-zinc-100 align-top">
+            <td class="px-3 py-3 text-sm">
+              <div class="font-mono text-xs text-zinc-500" x-text="row.id"></div>
+              <div class="mt-1 text-xs text-zinc-700" x-text="row.prompt||''"></div>
+              <div class="mt-2 text-xs text-amber-700" x-text="row.notes||''"></div>
+            </td>
+            <template x-for="(item,i) in row.items" :key="i">
+              <td class="px-3 py-3">
+                <template x-if="item.kind==='image'"><div class="cell-img"><img :src="item.value" :alt="item.caption||''"></div></template>
+                <template x-if="item.kind==='video'"><div class="cell-video"><video :src="item.value" controls muted></video></div></template>
+                <template x-if="item.kind==='html'"><div x-html="item.value"></div></template>
+                <template x-if="item.kind==='text'||!item.kind"><div class="cell-text" x-text="item.value"></div></template>
+                <div class="text-xs text-zinc-500 mt-1" x-text="item.caption||''"></div>
+              </td>
+            </template>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- AUTHOR LAYER (raw metadata) -->
+  <details class="mt-8 text-sm">
+    <summary class="text-zinc-600 hover:text-zinc-900">raw metadata &amp; data dump</summary>
+    <pre class="mt-3 bg-zinc-900 text-zinc-100 p-4 rounded-md overflow-auto text-xs"
+         x-text="JSON.stringify(data, null, 2)"></pre>
+  </details>
+
+  <footer class="mt-12 text-xs text-zinc-400">
+    Generated with <a href="https://github.com/osh888/report-skill" class="underline">report-skill</a>.
+    View Source to recover the raw data.
+  </footer>
+</div>
+
+<script>
+function reportApp(){
+  return {
+    data: {},
+    filter: '',
+    onlyDiffs: false,
+    init(){ this.data = JSON.parse(document.getElementById('data').textContent); },
+    visibleRows(){
+      const f = this.filter.trim().toLowerCase();
+      return (this.data.rows||[]).filter(r=>{
+        if (this.onlyDiffs) {
+          const texts = (r.items||[]).map(i=>JSON.stringify(i.value));
+          if (new Set(texts).size <= 1) return false;
+        }
+        if (!f) return true;
+        const hay = JSON.stringify(r).toLowerCase();
+        return hay.includes(f);
+      });
+    }
+  };
+}
+</script>
+</body>
+</html>

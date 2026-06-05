@@ -1,0 +1,187 @@
+<!doctype html>
+<!--
+report-skill: 0.3.1
+template: metrics-board
+generated_at: 2026-07-09T02:56:19Z
+generator: report-skill/bin/report new
+git_sha: 63fa9a8
+-->
+<!--
+  template: metrics-board
+  schema_version: 1
+  when_to_use: training/eval metrics — KPIs + curves + a results table
+  data_schema:
+    title: string
+    tldr: string
+    kpis: [{
+      label: string, value: string|number, delta?: string,
+      delta_good?: "up"|"down"|"neutral",  // "up" means higher is better (default for accuracy etc.); "down" for losses
+      hint?: string
+    }]
+    curves: [{name: string, x: [number], y: [number]}]
+    table: {columns: [string], rows: [[any]]}
+    metadata?: object
+  example_input: examples/metrics-board-training-run.html
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PAW Strategy PR Evaluation Review</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+  body { font-feature-settings: "ss01","cv11"; }
+  .kpi { transition: transform .12s ease; }
+  .kpi:hover { transform: translateY(-2px); }
+  details > summary { cursor: pointer; }
+</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
+
+<script id="data" type="application/json">
+{
+  "title": "PAW Strategy PR Evaluation Review",
+  "tldr": "Three Hui strategy PRs were reviewed with the updated strategy-eval skill and report-skill commit 63fa9a8. Multi-asset and overnight have committed eval summaries and pass P0 bias gates, but still need P1/P2 inputs before live readiness; country ETF has strong reported metrics, but its eval artifact is missing from the PR and live rerun was blocked by yfinance data failures.",
+  "kpis": [
+    {"label":"PRs reviewed", "value":"3", "delta":"all open", "delta_good":"neutral", "hint":"PR #7, #9, #10"},
+    {"label":"P0 pass artifacts", "value":"2 / 3", "delta":"country missing JSON", "delta_good":"neutral", "hint":"multi-asset + overnight committed summary.json"},
+    {"label":"Best net Sharpe", "value":"1.547", "delta":"overnight artifact", "delta_good":"up", "hint":"committed summary.json, not PR body"},
+    {"label":"Strongest t-stat", "value":"3.243", "delta":"multi-asset", "delta_good":"up", "hint":"longer 2020-2025 sample"}
+  ],
+  "curves": [
+    {"name":"Net Sharpe", "x":["PR #10 Multi-Asset","PR #9 Country ETF","PR #7 Overnight"], "y":[1.451,1.531,1.547]},
+    {"name":"Alpha t-stat", "x":["PR #10 Multi-Asset","PR #9 Country ETF","PR #7 Overnight"], "y":[3.243,2.819,2.184]},
+    {"name":"Max Drawdown %", "x":["PR #10 Multi-Asset","PR #9 Country ETF","PR #7 Overnight"], "y":[-19.73,-26.41,-21.90]}
+  ],
+  "table": {
+    "columns": ["PR","Strategy","Evidence","P0 verdict","Net Sharpe","Net CAGR","Net MaxDD","Turnover","TC drag","Key decision note"],
+    "rows": [
+      ["#10","Multi-Asset Regime-Gated Momentum","committed summary.json + summary.md","PASS / reviewable","1.451","42.78%","-19.73%","27.7x","1.66% NAV/yr","Best statistical confidence and full-cycle 2020-2025 window; below 1.5 target but more credible than shorter bull-window results."],
+      ["#9","Country ETF Rotation","PR body + RESEARCH_NOTES only; no committed eval-report JSON","CONDITIONAL / artifact missing","1.531 reported","72.1% reported","-26.41% reported","31.1x reported","1.87% NAV/yr reported","Do not merge as deployed until eval-report/summary.json is committed or rerun succeeds; live rerun failed because yfinance returned empty data for all tickers."],
+      ["#7","Overnight Momentum","committed summary.json + summary.md","PASS / reviewable","1.547","44.71%","-21.90%","47.8x","2.87% NAV/yr","Artifact conflicts with PR body: committed report says Top4 no-TLT, Sharpe 1.547, MaxDD -21.90%; PR text says Top3, Sharpe 1.530, MaxDD -11.55%."]
+    ]
+  },
+  "metadata": {
+    "generated_at_utc":"2026-07-09T02:56:19Z",
+    "repo":"https://github.com/when2buy/paw_auto_research",
+    "report_skill_commit":"63fa9a8d74fdf929fa0a638cb666b4bbaf110913",
+    "strategy_eval_source":"https://github.com/when2buy/paw_auto_research/tree/main/skills/strategy-eval",
+    "prs": {
+      "multi_asset":"https://github.com/when2buy/paw_auto_research/pull/10",
+      "country_etf":"https://github.com/when2buy/paw_auto_research/pull/9",
+      "overnight":"https://github.com/when2buy/paw_auto_research/pull/7"
+    },
+    "rerun_status": {
+      "multi_asset":"blocked: run.py imports uncommitted tools/__pycache__/cross_asset_adapter.cpython-313.pyc",
+      "country_etf":"blocked: yfinance returned empty/no-timezone data for all country ETFs",
+      "overnight":"blocked: yfinance returned empty/no-timezone data for all ETFs; committed summary used"
+    },
+    "promotion_gaps": [
+      "factor_returns missing for factor exposure regression",
+      "oos_start_date missing for true unseen OOS split",
+      "existing_returns missing for portfolio interaction / Panda PnL correlation",
+      "paper/live return stream missing",
+      "fill, latency, queue position, partial-fill assumptions missing"
+    ]
+  }
+}
+</script>
+
+<div x-data="board()" x-init="init()" class="max-w-7xl mx-auto p-6">
+
+  <header class="mb-8">
+    <div class="text-xs uppercase tracking-wider text-zinc-500 mb-1">metrics-board · report-skill</div>
+    <h1 class="text-3xl font-semibold tracking-tight" x-text="data.title"></h1>
+    <p class="mt-3 text-zinc-700 max-w-3xl leading-relaxed" x-text="data.tldr"></p>
+  </header>
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <template x-for="k in data.kpis" :key="k.label">
+      <div class="kpi bg-white rounded-lg border border-zinc-200 p-4 shadow-sm">
+        <div class="text-xs uppercase tracking-wider text-zinc-500" x-text="k.label"></div>
+        <div class="mt-1 text-2xl font-semibold tabular-nums" x-text="k.value"></div>
+        <div class="mt-1 text-xs"
+             :class="deltaColor(k)"
+             x-text="k.delta||''"></div>
+        <div class="mt-1 text-xs text-zinc-400" x-text="k.hint||''"></div>
+      </div>
+    </template>
+  </div>
+
+  <!-- Curves -->
+  <div class="bg-white rounded-lg border border-zinc-200 p-4 shadow-sm mb-8">
+    <div class="text-sm font-semibold text-zinc-700 mb-2">Curves</div>
+    <div id="curves" style="height: 380px;"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-lg border border-zinc-200 shadow-sm overflow-hidden">
+    <div class="px-4 py-3 text-sm font-semibold text-zinc-700 border-b border-zinc-100">Results table</div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="bg-zinc-50">
+          <tr>
+            <template x-for="c in data.table.columns" :key="c">
+              <th class="text-left px-3 py-2 text-xs font-semibold text-zinc-600 uppercase tracking-wider" x-text="c"></th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(r,ri) in data.table.rows" :key="ri">
+            <tr class="border-t border-zinc-100">
+              <template x-for="(v,vi) in r" :key="vi">
+                <td class="px-3 py-2 tabular-nums" x-text="v"></td>
+              </template>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <details class="mt-8 text-sm">
+    <summary class="text-zinc-600 hover:text-zinc-900">raw metadata &amp; data dump</summary>
+    <pre class="mt-3 bg-zinc-900 text-zinc-100 p-4 rounded-md overflow-auto text-xs"
+         x-text="JSON.stringify(data, null, 2)"></pre>
+  </details>
+
+  <footer class="mt-12 text-xs text-zinc-400">
+    Generated with <a href="https://github.com/osh888/report-skill" class="underline">report-skill</a>.
+  </footer>
+</div>
+
+<script>
+function board(){
+  return {
+    data: {},
+    deltaColor(k){
+      const d = (k.delta||'').trim();
+      if (!d) return 'text-zinc-400';
+      const sign = d.startsWith('-') ? 'neg' : d.startsWith('+') ? 'pos' : 'flat';
+      // delta_good = "up" means + is good (green); "down" means - is good (green).
+      // Default: assume higher is better (most metrics).
+      const good = k.delta_good || 'up';
+      if (sign === 'flat') return 'text-zinc-400';
+      const isGood = (good === 'up' && sign === 'pos') || (good === 'down' && sign === 'neg');
+      return isGood ? 'text-emerald-700' : 'text-rose-700';
+    },
+    init(){
+      this.data = JSON.parse(document.getElementById('data').textContent);
+      const traces = (this.data.curves||[]).map(c => ({
+        x: c.x, y: c.y, name: c.name, mode: 'lines', type: 'scatter',
+      }));
+      Plotly.newPlot('curves', traces, {
+        margin: {t: 10, r: 10, b: 40, l: 50},
+        legend: {orientation: 'h'},
+        xaxis: {title: 'step'}, yaxis: {title: 'value'},
+        paper_bgcolor: 'white', plot_bgcolor: 'white',
+      }, {displayModeBar: false, responsive: true});
+    }
+  };
+}
+</script>
+</body>
+</html>

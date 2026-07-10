@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto Router Technical Thesis · 2026-07-10</title>
+<style>
+:root{
+  --bg:#f4f6f8;--ink:#101318;--muted:#637083;--panel:#fff;--line:#dce3ec;
+  --black:#12151b;--blue:#1f67d2;--cyan:#0b8ea2;--green:#0b7c56;--amber:#b16616;--red:#b83a38;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.46}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.94em}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 56px}
+.hero{background:var(--black);color:#fff;border-radius:8px;padding:30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:24px;align-items:end}
+.eyebrow{color:#8dd8ec;font-weight:750;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+h1{font-size:40px;line-height:1.05;margin:0 0 12px;letter-spacing:0}
+.lede{font-size:18px;color:#dbe4f0;max-width:780px;margin:0}
+.hero-card{border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(255,255,255,.08);padding:18px}
+.hero-card .big{font-size:44px;line-height:1;font-weight:780}
+.hero-card .label{margin-top:8px;color:#c9d3e2;font-size:13px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.badge{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);border-radius:999px;padding:6px 10px;color:#edf3ff;font-size:12px}
+.section{margin-top:16px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:17px;box-shadow:0 1px 2px rgba(20,27,40,.04)}
+h2{font-size:20px;margin:0 0 12px}
+h3{font-size:15px;margin:0 0 8px}
+p{margin:0 0 10px}
+.small{font-size:13px;color:var(--muted)}
+.kpi .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi .value{font-size:28px;font-weight:780;margin-top:8px}
+.kpi .note{font-size:13px;color:var(--muted);margin-top:4px}
+.step{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;margin:12px 0}
+.num{width:36px;height:36px;border-radius:8px;background:#eef5ff;color:var(--blue);font-weight:780;display:flex;align-items:center;justify-content:center}
+.pipe{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:12px}
+.node{border:1px solid var(--line);border-radius:8px;background:#fff;padding:13px;min-height:88px}
+.node .top{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.node .main{font-weight:760;font-size:16px;margin-top:7px}
+.node.blue{border-color:#bfd4f5;background:#f7faff}.node.green{border-color:#bfe5d8;background:#f6fffb}.node.amber{border-color:#ead1ad;background:#fffaf2}
+.claim{border-top:4px solid var(--blue)}
+.claim:nth-child(2){border-color:var(--cyan)}.claim:nth-child(3){border-color:var(--green)}
+.bar-row{display:grid;grid-template-columns:112px minmax(0,1fr) 80px;gap:10px;align-items:center;margin:11px 0}
+.bar{height:18px;background:#edf2f8;border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px;background:var(--blue)}
+.table-wrap{overflow:auto}
+table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top;font-size:14px}
+th{background:#eef2f7;color:#4d586d;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;background:#ecfdf5;color:#066548;font-weight:700}
+.pill.blue{background:#eff6ff;color:#1c55a0}.pill.warn{background:#fff7ed;color:#8a4a0b}
+.callout{border-left:4px solid var(--amber);background:#fffaf0}
+.refs{columns:2;column-gap:24px}
+.refs li{break-inside:avoid;margin:0 0 8px}
+.footer{margin-top:18px;color:var(--muted);font-size:12px}
+@media(max-width:940px){.hero,.two{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:1fr}.pipe{grid-template-columns:1fr 1fr}.refs{columns:1}h1{font-size:32px}.hero{padding:24px 20px}}
+@media(max-width:620px){.wrap{padding:16px 12px 42px}.grid,.pipe{grid-template-columns:1fr}.hero-card .big{font-size:36px}.bar-row{grid-template-columns:92px minmax(0,1fr) 66px}table{min-width:720px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Auto Router technical thesis</div>
+      <h1>Routing is the control plane for the multi-model era</h1>
+      <p class="lede">The advanced idea is not "one more model benchmark." It is a production router that chooses the cheapest sufficiently strong model/provider for each task, with measurable quality, cost, latency, and fallback behavior.</p>
+      <div class="badges">
+        <span class="badge">Research-backed: cascade + learned routing</span>
+        <span class="badge">Industry-backed: OpenRouter / frontier labs</span>
+        <span class="badge">Pilot-backed: 30/30 successful route probes</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="big">98%</div>
+      <div class="label">cost-reduction ceiling reported by FrugalGPT-style LLM cascades, while preserving or improving quality in their experiments</div>
+    </div>
+  </section>
+
+  <section class="section grid">
+    <div class="card kpi"><div class="label">Pilot success</div><div class="value">30 / 30</div><div class="note">Terminal-Bench prompt probes completed</div></div>
+    <div class="card kpi"><div class="label">Probe cost</div><div class="value">$0.00134</div><div class="note">total for 30 metadata probes</div></div>
+    <div class="card kpi"><div class="label">Client latency</div><div class="value">1.89s</div><div class="note">average, P90 2.72s</div></div>
+    <div class="card kpi"><div class="label">Observed routing</div><div class="value">2 providers</div><div class="note">BaseTen 63.3%, Nebius 36.7%</div></div>
+  </section>
+
+  <section class="section three">
+    <div class="card claim">
+      <h2>1. The market problem is real</h2>
+      <p>Every product team now faces the same question: should this request go to a frontier model, a cheaper capable model, an open-weight model, or a fallback provider?</p>
+      <p class="small">A router turns provider sprawl into a policy layer: quality floor, cost ceiling, latency target, compliance requirement, and fallback rules.</p>
+    </div>
+    <div class="card claim">
+      <h2>2. The algorithmic direction is mature</h2>
+      <p>FrugalGPT formalized LLM cascades. RouteLLM formalized learned model selection from preference data. Newer routing work extends this into quality/cost/latency-aware selection.</p>
+      <p class="small">This is not hand-wavy middleware. It is an optimization problem with published methods, measurable rewards, and benchmarkable trade-offs.</p>
+    </div>
+    <div class="card claim">
+      <h2>3. Our pilot proves the production path</h2>
+      <p>The current result demonstrates an observable route: <code>new-api -> OpenRouter -> provider endpoint</code>, with per-run model, provider, latency, token, quota, and cost metadata.</p>
+      <p class="small">That metadata is exactly what a router needs before it can become adaptive instead of static.</p>
+    </div>
+  </section>
+
+  <section class="section card">
+    <h2>Auto Router Architecture</h2>
+    <p>The production-ready design separates application API, routing policy, provider execution, and evaluation feedback. This makes the router learnable and auditable rather than a black-box switch.</p>
+    <div class="pipe">
+      <div class="node blue"><div class="top">Input</div><div class="main">Task + budget + policy</div></div>
+      <div class="node"><div class="top">Feature extraction</div><div class="main">Difficulty, domain, risk, length</div></div>
+      <div class="node green"><div class="top">Router</div><div class="main">Select model/provider/fallback</div></div>
+      <div class="node"><div class="top">Execution</div><div class="main">Unified API, provider metadata</div></div>
+      <div class="node amber"><div class="top">Feedback</div><div class="main">Quality, cost, latency, error traces</div></div>
+    </div>
+  </section>
+
+  <section class="section two">
+    <div class="card">
+      <h2>Algorithmic Playbook</h2>
+      <div class="step"><div class="num">A</div><div><h3>Cascade routing</h3><p class="small">Start with cheaper models, escalate only when confidence or task difficulty requires it. FrugalGPT is the clean reference.</p></div></div>
+      <div class="step"><div class="num">B</div><div><h3>Learned preference routing</h3><p class="small">Train a router on pairwise preferences or LLM-judge labels to predict when a stronger model is worth the cost. RouteLLM is the clean reference.</p></div></div>
+      <div class="step"><div class="num">C</div><div><h3>Policy-aware provider routing</h3><p class="small">After model choice, select provider by availability, latency, price, geography, and reliability. OpenRouter exposes this as a separate provider-routing layer.</p></div></div>
+      <div class="step"><div class="num">D</div><div><h3>Closed-loop evaluation</h3><p class="small">Use Terminal-Bench-style agent tasks plus application traces to continuously tune the routing frontier.</p></div></div>
+    </div>
+    <div class="card">
+      <h2>What We Can Show Today</h2>
+      <div class="bar-row"><strong>Route success</strong><div class="bar"><div class="fill" style="width:100%;background:var(--green)"></div></div><span>30/30</span></div>
+      <div class="bar-row"><strong>BaseTen</strong><div class="bar"><div class="fill" style="width:63.3%"></div></div><span>63.3%</span></div>
+      <div class="bar-row"><strong>Nebius</strong><div class="bar"><div class="fill" style="width:36.7%;background:var(--cyan)"></div></div><span>36.7%</span></div>
+      <div class="bar-row"><strong>P90 latency</strong><div class="bar"><div class="fill" style="width:96.8%;background:var(--amber)"></div></div><span>2.72s</span></div>
+      <p class="small">The pilot is an infrastructure proof, not yet a model-vs-model benchmark. Its value is that it proves the measurement spine needed for a real router: every request can be priced, timed, attributed, and compared.</p>
+    </div>
+  </section>
+
+  <section class="section card">
+    <h2>Evidence Stack for the Deck</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Evidence</th><th>What it proves</th><th>How to use it in the pitch</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>FrugalGPT</strong><br><a href="https://arxiv.org/abs/2305.05176">arxiv.org/abs/2305.05176</a></td>
+            <td>LLM cascades can reduce inference cost dramatically while preserving or improving quality.</td>
+            <td><span class="pill">algorithm foundation</span> Cost/quality optimization is publishable research, not just vendor plumbing.</td>
+          </tr>
+          <tr>
+            <td><strong>RouteLLM</strong><br><a href="https://arxiv.org/abs/2406.18665">arxiv.org/abs/2406.18665</a></td>
+            <td>Preference-data routers can select between stronger and weaker LLMs and save cost without large quality loss.</td>
+            <td><span class="pill blue">learned router</span> Our next step can be a trainable policy, not a hard-coded rule table.</td>
+          </tr>
+          <tr>
+            <td><strong>OpenRouter routing docs</strong><br><a href="https://openrouter.ai/docs/guides/routing/routers/auto-router">Auto Router</a> · <a href="https://openrouter.ai/docs/guides/routing/provider-selection">Provider routing</a></td>
+            <td>Model routing and provider routing are separate operational decisions.</td>
+            <td><span class="pill">production layer</span> Our architecture aligns with how the live multi-provider ecosystem is evolving.</td>
+          </tr>
+          <tr>
+            <td><strong>Terminal-Bench</strong><br><a href="https://arxiv.org/abs/2601.11868">paper</a> · <a href="https://www.tbench.ai/leaderboard/terminal-bench/2.1">leaderboard</a></td>
+            <td>Agentic terminal tasks are a serious benchmark category used to evaluate coding agents.</td>
+            <td><span class="pill blue">credible eval</span> We are not testing toy chatbot prompts; we are using agent workload prompts.</td>
+          </tr>
+          <tr>
+            <td><strong>Frontier-lab references</strong><br><a href="https://openai.com/index/introducing-gpt-5-5/">OpenAI</a> · <a href="https://www.anthropic.com/news/claude-4">Anthropic</a> · <a href="https://deepmind.google/blog/start-building-with-gemini-3/">Google DeepMind</a></td>
+            <td>OpenAI, Anthropic, and Google/DeepMind publicly reference Terminal-Bench-style agentic coding results.</td>
+            <td><span class="pill">authority</span> The evaluation frame is recognizable to sophisticated AI investors and technical buyers.</td>
+          </tr>
+          <tr>
+            <td><strong>Anthropic infra-noise note</strong><br><a href="https://www.anthropic.com/engineering/infrastructure-noise">infrastructure-noise</a></td>
+            <td>Agent benchmark scores are sensitive to execution environment and infra configuration.</td>
+            <td><span class="pill warn">caveat</span> We should position our pilot honestly and propose controlled reruns before claiming ranking superiority.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section two">
+    <div class="card">
+      <h2>Investor Narrative</h2>
+      <p><strong>Old world:</strong> applications pick one default model, pay frontier pricing too often, and manage provider failures manually.</p>
+      <p><strong>New world:</strong> applications call one AI endpoint; the router decides the model/provider based on task difficulty, cost, latency, quota, and reliability.</p>
+      <p><strong>Our wedge:</strong> we already have the gateway path and telemetry. The next lift is turning logs into a policy-learning loop.</p>
+    </div>
+    <div class="card">
+      <h2>Next Demonstration Round</h2>
+      <p>Run the same Terminal-Bench task set across explicit policies:</p>
+      <p><span class="pill">Economy</span> GLM / Qwen / OSS candidate</p>
+      <p><span class="pill blue">Balanced</span> OpenRouter auto / best-value coding model</p>
+      <p><span class="pill warn">Premium</span> Claude Opus / GPT / Gemini frontier model</p>
+      <p class="small">Report success rate, cost per solved task, P50/P90 latency, provider failure rate, and judge/manual quality. The core chart should be a Pareto frontier: quality vs cost vs latency.</p>
+    </div>
+  </section>
+
+  <section class="section card callout">
+    <h2>Recommended Wording</h2>
+    <p>"We are building a model-routing control plane. The research community has shown that cascade and learned routing can cut cost while preserving quality; the API ecosystem is already moving toward model/provider routing; and our pilot demonstrates that our production path captures the telemetry needed to learn and enforce routing policy."</p>
+    <p class="small">Avoid saying: "we beat Claude / GLM / Gemini" until the next same-task full-output comparison is complete.</p>
+  </section>
+
+  <section class="section card">
+    <h2>Source Links</h2>
+    <ul class="refs">
+      <li>FrugalGPT paper: <a href="https://arxiv.org/abs/2305.05176">https://arxiv.org/abs/2305.05176</a></li>
+      <li>RouteLLM paper: <a href="https://arxiv.org/abs/2406.18665">https://arxiv.org/abs/2406.18665</a></li>
+      <li>RouteLLM project page: <a href="https://sky.cs.berkeley.edu/project/routellm/">https://sky.cs.berkeley.edu/project/routellm/</a></li>
+      <li>OpenRouter Auto Router: <a href="https://openrouter.ai/docs/guides/routing/routers/auto-router">https://openrouter.ai/docs/guides/routing/routers/auto-router</a></li>
+      <li>OpenRouter Provider Routing: <a href="https://openrouter.ai/docs/guides/routing/provider-selection">https://openrouter.ai/docs/guides/routing/provider-selection</a></li>
+      <li>OpenRouter model-routing explainer: <a href="https://openrouter.ai/blog/insights/model-routing/">https://openrouter.ai/blog/insights/model-routing/</a></li>
+      <li>Terminal-Bench paper: <a href="https://arxiv.org/abs/2601.11868">https://arxiv.org/abs/2601.11868</a></li>
+      <li>Terminal-Bench 2.1 leaderboard: <a href="https://www.tbench.ai/leaderboard/terminal-bench/2.1">https://www.tbench.ai/leaderboard/terminal-bench/2.1</a></li>
+      <li>OpenAI GPT-5.5 release: <a href="https://openai.com/index/introducing-gpt-5-5/">https://openai.com/index/introducing-gpt-5-5/</a></li>
+      <li>Anthropic Claude 4 release: <a href="https://www.anthropic.com/news/claude-4">https://www.anthropic.com/news/claude-4</a></li>
+      <li>Google DeepMind Gemini 3 developer release: <a href="https://deepmind.google/blog/start-building-with-gemini-3/">https://deepmind.google/blog/start-building-with-gemini-3/</a></li>
+      <li>Anthropic benchmark infrastructure caveat: <a href="https://www.anthropic.com/engineering/infrastructure-noise">https://www.anthropic.com/engineering/infrastructure-noise</a></li>
+    </ul>
+  </section>
+
+  <p class="footer">Prepared on 2026-07-10 UTC for the Token Router discussion. This page uses public research/doc links plus the internal OpenRouter routing pilot metrics from the prior report.</p>
+</main>
+</body>
+</html>

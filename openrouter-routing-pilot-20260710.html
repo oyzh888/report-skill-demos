@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenRouter Routing Pilot · Investor Review</title>
+<style>
+:root{
+  --bg:#f6f7fb;--ink:#111318;--muted:#687083;--panel:#fff;--line:#dde2ea;
+  --navy:#172033;--green:#0f8a5f;--blue:#246bce;--amber:#b7791f;--violet:#7048b8;--red:#b73737;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 56px}
+.hero{background:var(--navy);color:#fff;border-radius:8px;padding:28px 30px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.75fr);gap:22px;align-items:end}
+h1{font-size:38px;line-height:1.06;margin:0 0 12px;letter-spacing:0}
+.lede{font-size:17px;color:#d9e0ee;max-width:780px;margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.badge{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);border-radius:999px;padding:6px 10px;font-size:12px;color:#edf3ff}
+.hero-stat{border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:16px;background:rgba(255,255,255,.08)}
+.hero-stat .num{font-size:44px;font-weight:760;line-height:1}
+.hero-stat .label{color:#c8d2e4;font-size:13px;margin-top:6px}
+.section{margin-top:18px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;box-shadow:0 1px 2px rgba(20,27,40,.04)}
+.kpi .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi .value{font-size:30px;font-weight:760;margin-top:8px}
+.kpi .note{font-size:13px;color:var(--muted);margin-top:5px}
+h2{font-size:20px;margin:0 0 12px}
+h3{font-size:15px;margin:0 0 8px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.split{display:grid;grid-template-columns:90px minmax(0,1fr) 64px;gap:10px;align-items:center;margin:12px 0}
+.bar{height:18px;background:#edf1f7;border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px}
+.fill.green{background:var(--green)}.fill.blue{background:var(--blue)}.fill.violet{background:var(--violet)}
+.model-box{border:1px solid #c7d2fe;background:#f5f7ff;border-radius:8px;padding:18px}
+.model-name{font-size:23px;font-weight:750;color:#243b7a}
+.model-share{font-size:13px;color:#546179;margin-top:6px}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.node{border:1px solid var(--line);border-radius:8px;background:#fff;padding:13px;min-height:82px}
+.node .top{font-size:13px;color:var(--muted)}
+.node .main{font-size:17px;font-weight:700;margin-top:8px}
+table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top;font-size:14px}
+th{background:#eef2f7;color:#4d586d;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;background:#ecfdf5;color:#066548;font-weight:650}
+.pill.warn{background:#fff7ed;color:#8a4a0b}.pill.blue{background:#eff6ff;color:#1c55a0}
+.takeaways{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.takeaway{border-top:4px solid var(--blue)}
+.takeaway:nth-child(2){border-color:var(--green)}.takeaway:nth-child(3){border-color:var(--violet)}.takeaway:nth-child(4){border-color:var(--amber)}.takeaway:nth-child(5){border-color:var(--red)}
+.small{font-size:13px;color:var(--muted)}
+.callout{border-left:4px solid var(--amber);background:#fffaf0}
+.footer{margin-top:18px;color:var(--muted);font-size:12px}
+@media(max-width:920px){.hero,.two{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.takeaways{grid-template-columns:1fr 1fr}.hero{padding:24px 20px}h1{font-size:31px}}
+@media(max-width:620px){.grid,.flow,.takeaways{grid-template-columns:1fr}.wrap{padding:16px 12px 42px}.hero-stat .num{font-size:36px}table{min-width:680px}.table-wrap{overflow:auto}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>OpenRouter Routing Pilot</h1>
+      <p class="lede">A small Terminal-Bench routing pilot shows that the current AI gateway can already deliver measurable, successful, and very low-cost model routing through one production path.</p>
+      <div class="badges">
+        <span class="badge">new-api -> OpenRouter -> provider endpoint</span>
+        <span class="badge">30 metadata probes</span>
+        <span class="badge">2 full-output smoke tests</span>
+        <span class="badge">Source: Terminal-Bench 2 prompts</span>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">100%</div>
+      <div class="label">successful sampled metadata probes</div>
+    </div>
+  </section>
+
+  <section class="section grid">
+    <div class="card kpi"><div class="label">Total probe cost</div><div class="value">$0.00134</div><div class="note">30 routing probes</div></div>
+    <div class="card kpi"><div class="label">Average cost</div><div class="value">$0.000045</div><div class="note">per probe</div></div>
+    <div class="card kpi"><div class="label">Average latency</div><div class="value">1.89s</div><div class="note">client-side</div></div>
+    <div class="card kpi"><div class="label">Prompt tokens</div><div class="value">8,946</div><div class="note">480 completion tokens</div></div>
+  </section>
+
+  <section class="section two">
+    <div class="card">
+      <h2>Routing Behavior</h2>
+      <div class="model-box">
+        <div class="model-name">openai/gpt-oss-120b</div>
+        <div class="model-share">Selected for 30 / 30 sampled tasks through <code>openrouter/auto</code></div>
+      </div>
+      <div class="flow">
+        <div class="node"><div class="top">Application</div><div class="main">new-api</div></div>
+        <div class="node"><div class="top">Router</div><div class="main">OpenRouter auto</div></div>
+        <div class="node"><div class="top">Selected model</div><div class="main">GPT OSS 120B</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Provider Execution Split</h2>
+      <div class="split"><strong>BaseTen</strong><div class="bar"><div class="fill green" style="width:63.3%"></div></div><span>19</span></div>
+      <div class="split"><strong>Nebius</strong><div class="bar"><div class="fill blue" style="width:36.7%"></div></div><span>11</span></div>
+      <p class="small">The model choice was stable, while execution still moved across upstream providers. That is the useful shape for product messaging: one app API, provider flexibility underneath.</p>
+    </div>
+  </section>
+
+  <section class="section card">
+    <h2>Latency Distribution</h2>
+    <div class="split"><strong>P50</strong><div class="bar"><div class="fill violet" style="width:63.7%"></div></div><span>1.79s</span></div>
+    <div class="split"><strong>Avg</strong><div class="bar"><div class="fill blue" style="width:67.3%"></div></div><span>1.89s</span></div>
+    <div class="split"><strong>P90</strong><div class="bar"><div class="fill green" style="width:96.8%"></div></div><span>2.72s</span></div>
+    <div class="split"><strong>Max</strong><div class="bar"><div class="fill" style="width:100%;background:var(--amber)"></div></div><span>2.81s</span></div>
+  </section>
+
+  <section class="section card">
+    <h2>Full-Output Smoke Tests</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Task</th><th>Model</th><th>Provider</th><th>Tokens</th><th>Latency</th><th>Cost</th><th>Finish</th></tr></thead>
+        <tbody>
+          <tr><td><strong>fix-git</strong></td><td>openai/gpt-oss-120b</td><td>BaseTen</td><td>111 prompt / 1,592 completion</td><td>10.22s</td><td>$0.0008071</td><td><span class="pill">stop</span></td></tr>
+          <tr><td><strong>llm-inference-batching-scheduler</strong></td><td>openai/gpt-oss-120b</td><td>BaseTen</td><td>1,231 prompt / 2,048 completion</td><td>9.55s</td><td>$0.0011471</td><td><span class="pill warn">length</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section takeaways">
+    <div class="card takeaway"><h3>Cost control</h3><p class="small">30 diverse probes cost about one-tenth of one cent total.</p></div>
+    <div class="card takeaway"><h3>Reliability signal</h3><p class="small">All sampled Terminal-Bench prompts completed through the route.</p></div>
+    <div class="card takeaway"><h3>Observability</h3><p class="small">Model, provider, token, latency, quota, and cost metadata were captured.</p></div>
+    <div class="card takeaway"><h3>Provider leverage</h3><p class="small">Execution split across BaseTen and Nebius behind one API.</p></div>
+    <div class="card takeaway"><h3>Product story</h3><p class="small">Sell a controllable AI endpoint, not a bag of provider keys.</p></div>
+  </section>
+
+  <section class="section card callout">
+    <h2>Review Caveat</h2>
+    <p>This is an early pilot, not a final routing benchmark. The sampled probes used a small output cap, and the route selected the same model for all 30 tasks. The next investor-safe version should compare explicit premium, balanced, and economy policies on full task outputs.</p>
+  </section>
+
+  <p class="footer">Prepared for internal review on 2026-07-10 UTC from Darren's OpenRouter routing pilot report. Source artifacts listed in the report: summary CSV, raw JSONL metadata, smoke test JSON, and prompt bundle.</p>
+</main>
+</body>
+</html>
